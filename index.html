@@ -84,7 +84,7 @@
       <a href="#inicio">Início</a>
       <a href="#clinica">A clínica</a>
       <a href="#tratamentos">Tratamentos</a>
-      <a href="#diferenciais">Diferenciais</a>
+      <a href="#resultados">Resultados</a>
       <a href="#profissional">Profissional</a>
       <a href="#depoimentos">Depoimentos</a>
       <a href="#contato">Contato</a>
@@ -122,35 +122,18 @@
         <span class="split accent" data-delay="0.4">uma transformação extraordinária.</span>
       </h1>
       <p class="lead fade-up" style="--d:.8s">
-        Realce sua beleza com facetas dentárias personalizadas. Um sorriso mais <strong>harmônico, elegante e natural</strong>, planejado para valorizar aquilo que torna você única.
-      </p>
-      <p class="lead fade-up hero-sub" style="--d:.9s">
-        Na Elora Clinic, cada detalhe importa. Unimos precisão técnica e sensibilidade estética para transformar sorrisos com cuidado e personalidade.
+        Facetas dentárias personalizadas para um sorriso harmônico, elegante e natural — do seu jeito.
       </p>
       <div class="hero-ctas fade-up" style="--d:1s">
         <a class="btn-wa" data-wa href="#"><span><svg><use href="#i-wa"/></svg> Agende sua avaliação</span></a>
         <a class="btn-tex" href="#tratamentos">Conheça nossos tratamentos <svg><use href="#i-arrow-down"/></svg></a>
       </div>
-      <ul class="indicators fade-up" style="--d:1.25s">
-        <li><span class="ok"><svg><use href="#i-check"/></svg></span> Atendimento personalizado</li>
-        <li><span class="ok"><svg><use href="#i-check"/></svg></span> Estética do sorriso</li>
-        <li><span class="ok"><svg><use href="#i-check"/></svg></span> Facetas em resina e porcelana</li>
-      </ul>
     </div>
 
     <div class="hero-photo">
       <div class="ring"></div>
       <div class="frame">
         <img src="img/dra-karyne-clinica.webp" alt="Dra. Karyne Oliveira em seu consultório na Elora Clinic" fetchpriority="high" data-parallax="0.12" data-scale="1.12" />
-      </div>
-      <div class="float-card float-rating">
-        <div class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-        <b>5,0 no Google</b>
-        <small>22 avaliações de pacientes</small>
-      </div>
-      <div class="float-card float-doc">
-        <span class="ic"><svg><use href="#i-sparkle"/></svg></span>
-        <span><b>Dra. Karyne Oliveira</b><small>Fundadora</small></span>
       </div>
     </div>
   </div>
@@ -295,31 +278,46 @@
   </div>
 </section>
 
-<!-- ============ RESULTADOS ============
-     A seção fica oculta até existir pelo menos um caso.
-     Para adicionar, copie o bloco de exemplo abaixo para dentro de .cases-grid e troque as imagens.
-     Use apenas imagens próprias, com autorização do paciente e conforme as normas do CFO.
-
-     <figure class="case">
-       <div class="compare">
-         <img src="img/caso1-depois.webp" alt="Depois do tratamento" />
-         <img class="before" src="img/caso1-antes.webp" alt="Antes do tratamento" />
-         <span class="divider"></span>
-         <input type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois" />
-         <span class="lbl l">Antes</span><span class="lbl r">Depois</span>
-       </div>
-       <figcaption>Facetas em porcelana</figcaption>
-     </figure>
--->
-<section id="resultados" class="section bg-sand" hidden>
-  <div class="container">
-    <div class="narrow">
+<!-- ============ RESULTADOS ============ -->
+<section id="resultados" class="section bg-sand results">
+  <div class="container results-grid">
+    <div class="results-text">
       <span class="eyebrow reveal"><svg><use href="#i-sparkle"/></svg> Transformações Elora</span>
       <h2 class="title split">Um novo sorriso. Uma nova maneira de sorrir.</h2>
-      <p class="lead reveal" style="--d:.1s">Cada transformação é única. Conheça alguns dos resultados dos tratamentos realizados na Elora Clinic e descubra as possibilidades para o seu sorriso.</p>
+      <p class="lead reveal" style="--d:.1s">Cada transformação é única. Arraste e veja de perto um dos resultados realizados na Elora Clinic.</p>
+
+      <div class="ba-toggle reveal" style="--d:.15s" role="group" aria-label="Alternar visualização">
+        <button type="button" data-ba="0">Antes</button>
+        <button type="button" data-ba="50" class="active">Comparar</button>
+        <button type="button" data-ba="100">Depois</button>
+        <span class="ba-pill" aria-hidden="true"></span>
+      </div>
+
+      <ul class="case-facts reveal" style="--d:.2s">
+        <li><span>Tratamento</span><b>Facetas dentárias</b></li>
+        <li><span>Planejamento</span><b>Formato, proporção e cor</b></li>
+        <li><span>Objetivo</span><b>Harmonia e naturalidade</b></li>
+      </ul>
+
+      <a class="btn-wa reveal" style="--d:.25s" data-wa-msg="Olá! Vi o resultado de facetas no site e quero saber o que pode ser feito pelo meu sorriso." href="#"><span><svg><use href="#i-wa"/></svg> Quero o meu novo sorriso</span></a>
     </div>
-    <div class="cases-grid"></div>
-    <p class="cases-note">Imagens publicadas com autorização dos pacientes. Os resultados variam de acordo com cada caso.</p>
+
+    <div class="reveal" style="--d:.1s">
+      <!-- Caso clínico publicado com autorização do paciente (normas do CFO). -->
+      <figure class="ba" id="ba" style="--pos:50%">
+        <img src="img/resultado-facetas-depois.webp" alt="Sorriso depois do tratamento com facetas dentárias" />
+        <img class="ba-before" src="img/resultado-facetas-antes.webp" alt="Sorriso antes do tratamento" />
+        <span class="ba-tag l">Antes</span>
+        <span class="ba-tag r">Depois</span>
+        <span class="ba-line" aria-hidden="true">
+          <span class="ba-handle"><svg class="chev l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg><svg class="spark"><use href="#i-sparkle"/></svg><svg class="chev r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="ba-shine" aria-hidden="true"></span>
+        <input type="range" min="0" max="100" value="50" step="0.1" aria-label="Arraste para comparar antes e depois" />
+        <span class="ba-hint" aria-hidden="true">Arraste para comparar</span>
+      </figure>
+      <p class="cases-note">Caso clínico publicado com autorização do paciente. Os resultados variam de acordo com cada caso.</p>
+    </div>
   </div>
 </section>
 

@@ -153,15 +153,52 @@ document.getElementById('closePrivacy').addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-// ---- Resultados (antes e depois): mostra a seção só se houver casos ----
-const results = document.getElementById('resultados');
-if (results && results.querySelector('.case')) results.hidden = false;
-document.querySelectorAll('.compare').forEach((box) => {
-  const range = box.querySelector('input');
-  const before = box.querySelector('.before');
-  const divider = box.querySelector('.divider');
-  range.addEventListener('input', () => {
-    before.style.clipPath = `inset(0 ${100 - range.value}% 0 0)`;
-    divider.style.left = `${range.value}%`;
-  });
-});
+// ---- Resultados: comparador antes/depois ----
+const ba = document.getElementById('ba');
+if (ba) {
+  const range = ba.querySelector('input');
+  const toggles = [...document.querySelectorAll('[data-ba]')];
+  const toggleBox = document.querySelector('.ba-toggle');
+  const syncToggle = (v) => {
+    const i = v <= 2 ? 0 : v >= 98 ? 2 : 1;
+    toggles.forEach((b, k) => b.classList.toggle('active', k === i));
+    toggleBox.style.setProperty('--i', i);
+  };
+  const set = (v) => { ba.style.setProperty('--pos', `${v}%`); range.value = v; syncToggle(v); };
+  const shine = () => { ba.classList.remove('shine'); void ba.offsetWidth; ba.classList.add('shine'); };
+
+  // arrastar / teclado
+  range.addEventListener('input', () => { ba.classList.remove('anim'); ba.classList.add('touched'); set(+range.value); });
+  range.addEventListener('pointerdown', () => ba.classList.add('dragging'));
+  window.addEventListener('pointerup', () => ba.classList.remove('dragging'));
+
+  // botões Antes / Comparar / Depois
+  toggles.forEach((b) => b.addEventListener('click', () => {
+    ba.classList.add('anim', 'touched');
+    set(+b.dataset.ba);
+    if (+b.dataset.ba === 100) shine();
+  }));
+
+  // revelação automática ao aparecer na tela: mostra o antes → revela o depois com brilho → volta ao meio
+  const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const segs = [[50, 0, 0, 700], [0, 100, 900, 2100], [100, 50, 2700, 3500]];
+  const revealIO = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    revealIO.disconnect();
+    if (reduceMotion) return;
+    let t0 = null, shone = false;
+    (function step(now) {
+      if (ba.classList.contains('touched')) return;
+      if (t0 === null) t0 = now;
+      const t = now - t0;
+      let seg = segs[0];
+      for (const sg of segs) if (t >= sg[2]) seg = sg;
+      const [a, b, s, e] = seg;
+      const k = Math.min(1, Math.max(0, (t - s) / (e - s)));
+      set(a + (b - a) * ease(k));
+      if (t > 2000 && !shone) { shone = true; shine(); }
+      if (t < 3500) requestAnimationFrame(step);
+    })(performance.now());
+  }, { threshold: .55 });
+  revealIO.observe(ba);
+}
