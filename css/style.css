@@ -470,3 +470,6 @@ section { position: relative; }
 .ba.anim .ba-before { transition: clip-path .7s var(--ease); }
 .ba.anim .ba-line { transition: left .7s var(--ease); }
 @media (max-width: 640px) { .ba { border-radius: 20px; } .ba::after { border-radius: 14px; } .ba-tag { top: 14px; font-size: 10px; } .ba-tag.l { left: 14px; } .ba-tag.r { right: 14px; } .ba-handle { height: 44px; } .ba-hint { display: none; } .ba-toggle { display: grid; } }
+
+.ba-tag { transition: opacity .35s; }
+.ba.only-after .ba-tag.l, .ba.only-before .ba-tag.r { opacity: 0; }

@@ -160,11 +160,16 @@ if (ba) {
   const toggles = [...document.querySelectorAll('[data-ba]')];
   const toggleBox = document.querySelector('.ba-toggle');
   const syncToggle = (v) => {
-    const i = v <= 2 ? 0 : v >= 98 ? 2 : 1;
+    // alça à direita (100) = só o ANTES visível; à esquerda (0) = só o DEPOIS
+    const i = v >= 98 ? 0 : v <= 2 ? 2 : 1;
     toggles.forEach((b, k) => b.classList.toggle('active', k === i));
     toggleBox.style.setProperty('--i', i);
   };
-  const set = (v) => { ba.style.setProperty('--pos', `${v}%`); range.value = v; syncToggle(v); };
+  const set = (v) => {
+    ba.style.setProperty('--pos', `${v}%`); range.value = v; syncToggle(v);
+    ba.classList.toggle('only-after', v < 12);
+    ba.classList.toggle('only-before', v > 88);
+  };
   const shine = () => { ba.classList.remove('shine'); void ba.offsetWidth; ba.classList.add('shine'); };
 
   // arrastar / teclado
@@ -176,12 +181,12 @@ if (ba) {
   toggles.forEach((b) => b.addEventListener('click', () => {
     ba.classList.add('anim', 'touched');
     set(+b.dataset.ba);
-    if (+b.dataset.ba === 100) shine();
+    if (+b.dataset.ba === 0) shine();
   }));
 
   // revelação automática ao aparecer na tela: mostra o antes → revela o depois com brilho → volta ao meio
   const ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-  const segs = [[50, 0, 0, 700], [0, 100, 900, 2100], [100, 50, 2700, 3500]];
+  const segs = [[50, 100, 0, 700], [100, 0, 900, 2100], [0, 50, 2700, 3500]];
   const revealIO = new IntersectionObserver((entries) => {
     if (!entries[0].isIntersecting) return;
     revealIO.disconnect();
